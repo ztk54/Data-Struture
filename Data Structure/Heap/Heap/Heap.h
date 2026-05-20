@@ -33,4 +33,6 @@ void Adjustup(HeapDataType* arr, int child);
 
 void Adjustdown(HeapDataType* arr, int parent, int n);
 
+void HeapSort(int* arr, int n);
+
 

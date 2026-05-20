@@ -94,7 +94,8 @@ void Adjustdown(HeapDataType* arr, int parent, int n)
 		{
 			child++;
 		}
-		if (arr[child] < arr[parent])
+		//大堆>  小堆<
+		if (arr[child] > arr[parent])
 		{
 			swap(&arr[child], &arr[parent]);
 			parent = child;
@@ -104,6 +105,30 @@ void Adjustdown(HeapDataType* arr, int parent, int n)
 		{
 			break;
 		}
+	}
+}
+
+//第一步将所需数组化堆的形式，大堆或小堆看具体是升序还是降序需求
+//大堆是升序，小堆是降序
+void HeapSort(int* arr, int n)
+{
+	//Adjustdown实现堆
+	for (int i = (n - 1 - 1) / 2;i >= 0;i--)
+	{
+		Adjustdown(arr, i, n);
+	}
+
+	////Adjustup实现堆
+	//for (int i = 0;i < 0;i++)
+	//{
+	//	Adjustup(arr, i);
+	//}
+	int end = n - 1;
+	while (end)
+	{
+		swap(&arr[0], &arr[end]);
+		Adjustdown(arr, 0, end);
+		end--;
 	}
 }
 
