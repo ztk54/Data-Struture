@@ -23,5 +23,5 @@ void StackPush(Stack* ps, StackDataType data);
 void StackPop(Stack* ps);
 
 StackDataType StackTop(Stack* ps);
-
+ 
 int StackSize(Stack* ps);
