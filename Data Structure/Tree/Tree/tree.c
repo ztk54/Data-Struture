@@ -171,3 +171,8 @@ void BinaryTreeLevelOrder(BTNode* root)
 	}
 	QueueDestroy(&q);
 }
+
+int BinaryTreeComplete(BTNode* root)
+{
+	return 0;
+}

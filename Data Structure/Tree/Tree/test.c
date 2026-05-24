@@ -10,13 +10,13 @@ int main()
 	printf("第4层节点个数为：%d\n", BinaryTreeLevelKSize(root, 4));
 	printf("叶子节点个数为：%d\n", BinaryTreeLeafSize(root));
 	printf("二叉树层数为：%d\n", BinaryTreeDepth(root));
-	//BinaryTreePrevOrder(root);
-	//printf("\n");
-	//BinaryTreeInOrder(root);
-	//printf("\n");
-	//BinaryTreePostOrder(root);
-	BinaryTreeLevelOrder(root);
+	BinaryTreePrevOrder(root);
 	printf("\n");
+	BinaryTreeInOrder(root);
+	printf("\n");
+	BinaryTreePostOrder(root);
+	printf("\n");
+	BinaryTreeLevelOrder(root);
 	BinaryTreeDestory(&root);
 	return 0;
 }
