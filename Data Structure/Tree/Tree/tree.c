@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "Queue.h"
 
 BTNode* BinaryTreeCreate(BTDataType* a, int* pi)
 {
@@ -117,7 +118,7 @@ void BinaryTreePrevOrder(BTNode* root)
 {
 	if (root == NULL)
 	{
-		printf("NULL");
+		printf("NULL ");
 		return;
 	}
 	printf("%c ", root->data);
@@ -129,7 +130,7 @@ void BinaryTreeInOrder(BTNode* root)
 {
 	if (root == NULL)
 	{
-		printf("NULL");
+		printf("NULL ");
 		return;
 	}
 	BinaryTreeInOrder(root->left);
@@ -141,7 +142,7 @@ void BinaryTreePostOrder(BTNode* root)
 {
 	if (root == NULL)
 	{
-		printf("NULL");
+		printf("NULL ");
 		return;
 	}
 	BinaryTreePostOrder(root->left);
@@ -149,3 +150,24 @@ void BinaryTreePostOrder(BTNode* root)
 	printf("%c ", root->data);
 }
 
+void BinaryTreeLevelOrder(BTNode* root)
+{
+	//这里是把BinaryTreeNode*当作元素存储在队列里
+	Queue q;
+	QueueInit(&q);
+	//终于找到问题了，这里我把root->data入队列有点搞笑了，入队列了个char类型常量
+	QueuePush(&q, root);
+	while (!IsQueueEmpty(&q))
+	{
+		//取队头，出队头
+		BTNode* top = QueueFront(&q);
+		QueuePop(&q);
+		printf("%c ", top->data);
+		//将  队头的  左右孩子入队，刚开始写的是root的左右节点，只能打印一个元素
+		if (top->left)
+			QueuePush(&q, top->left);
+		if (top->right)
+			QueuePush(&q, top->right);
+	}
+	QueueDestroy(&q);
+}

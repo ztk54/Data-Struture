@@ -31,6 +31,7 @@ void QueuePush(Queue* q, QDataType data)
 	if (newnode == NULL)
 	{
 		perror("Malloc Failed");
+
 		exit(0);
 	}
 	newnode->next = NULL;
@@ -49,6 +50,7 @@ void QueuePush(Queue* q, QDataType data)
 
 void QueuePop(Queue* q)
 {
+	//这里的错误导致程序崩溃，已修改
 	assert(!IsQueueEmpty(q));
 	if (q->phead == q->ptail)
 	{
@@ -59,7 +61,6 @@ void QueuePop(Queue* q)
 	{
 		QueueNode* next = q->phead->next;
 		free(q->phead);
-		//q->phead = NULL;
 		q->phead = next;
 	}
 }

@@ -1,5 +1,5 @@
 #pragma once
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -49,3 +49,7 @@ void BinaryTreePostOrder(BTNode* root);
 // 层序遍历  使用queue数据结构来进行
 void BinaryTreeLevelOrder(BTNode* root);
 
+// 判断二叉树是否是完全二叉树
+int BinaryTreeComplete(BTNode* root);
+
+//根据前序和后序遍历得到原二叉树
