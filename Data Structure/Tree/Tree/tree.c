@@ -176,3 +176,35 @@ int BinaryTreeComplete(BTNode* root)
 {
 	return 0;
 }
+
+BTNode* build_pre_in(BTDataType pre[], BTDataType in[], int pre_start, int in_start, int size)
+{
+	if (size <= 0)
+	{
+		return NULL;
+	}
+
+	//前序节点就是根节点
+	BTDataType root_val = pre[pre_start];
+	BTNode* root = (BTNode*)malloc(sizeof(BTNode));
+	root->data = root_val;
+	root->left = root->right = NULL;
+
+	//在中序节点里面找到刚刚那个节点，左边就是左子树，右边是右子树
+	int left_size = 0;
+	for (int i = 0;i < size;i++)
+	{
+		if (in[in_start + 1] == root_val)
+		{
+			left_size = i;
+		}
+	}
+	int right_size = size - left_size - 1;
+
+	//递归左子树
+	root->left = build_pre_in(pre, in, pre_start + 1, in_start, left_size);
+
+	//递归右子树
+	root->right = build_pre_in(pre, in, pre_start + 1 + left_size, in_start, right_size);
+	return root;
+}
