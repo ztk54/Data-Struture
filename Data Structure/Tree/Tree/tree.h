@@ -19,14 +19,33 @@ BTNode* BinaryTreeCreate(BTDataType* a, int* pi);
 
 BTNode* BuyNode(BTDataType x);
 
+//递归销毁二叉树
+void BinaryTreeDestory(BTNode** root);
+
 //递归得到二叉树节点个数
 int BinaryTreeSize(BTNode* root);
 
 //递归得到二叉树叶子节点个数，叶子节点是指左右子数都为空的二叉树
 int BinaryTreeLeafSize(BTNode* root);
 
-
+//递归得到第k层节点个数
 int BinaryTreeLevelKSize(BTNode* root, int k);
 
+//递归得到层数
+int BinaryTreeDepth(BTNode* root);
 
+//递归查找对应节点x
+BTNode* BinaryTreeFind(BTNode* root, BTDataType x);
+
+// 二叉树前序遍历 根左右
+void BinaryTreePrevOrder(BTNode* root);
+
+// 二叉树中序遍历  左根右
+void BinaryTreeInOrder(BTNode* root);
+
+// 二叉树后序遍历  左右根
+void BinaryTreePostOrder(BTNode* root);
+
+// 层序遍历  使用queue数据结构来进行
+void BinaryTreeLevelOrder(BTNode* root);
 

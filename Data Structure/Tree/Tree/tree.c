@@ -28,6 +28,18 @@ BTNode* BuyNode(BTDataType x)
 	return newnode;
 }
 
+void BinaryTreeDestory(BTNode** root)
+{
+	if (*root == NULL)
+	{
+		return;
+	}
+	BinaryTreeDestory(&(*root)->left);
+	BinaryTreeDestory(&(*root)->right);
+	free(*root);
+	*root = NULL;
+}
+
 int BinaryTreeSize(BTNode* root)
 {
 	if (root == NULL)
@@ -50,5 +62,90 @@ int BinaryTreeLeafSize(BTNode* root)
 		return 1;
 	}
 	return BinaryTreeLeafSize(root->left) + BinaryTreeLeafSize(root->right);
+}
+
+int BinaryTreeLevelKSize(BTNode* root, int k)
+{
+	//注意这里两个if判断不能更改顺序，否则NULL也被当为了有效节点
+	if (root == NULL)
+	{
+		return 0;
+	}
+	if (k == 1)
+	{
+		return 1;
+	}
+	return BinaryTreeLevelKSize(root->left, k - 1)
+		+ BinaryTreeLevelKSize(root->right, k - 1);
+}
+
+int BinaryTreeDepth(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return 0;
+	}
+	int left = BinaryTreeDepth(root->left);
+	int right = BinaryTreeDepth(root->right);
+	return 1 + (left > right ? left : right);
+	return 0;
+}
+
+BTNode* BinaryTreeFind(BTNode* root, BTDataType x)
+{
+	if (root == NULL)
+	{
+		return NULL;
+	}
+	if (root->data == x)
+	{
+		return root;
+	}
+	BTNode* left = BinaryTreeFind(root->left, x);
+	if (left)
+	{
+		return left;
+	}
+	BTNode* right = BinaryTreeFind(root->right, x);
+	if (right)
+	{
+		return right;
+	}
+}
+
+void BinaryTreePrevOrder(BTNode* root)
+{
+	if (root == NULL)
+	{
+		printf("NULL");
+		return;
+	}
+	printf("%c ", root->data);
+	BinaryTreePrevOrder(root->left);
+	BinaryTreePrevOrder(root->right);
+}
+
+void BinaryTreeInOrder(BTNode* root)
+{
+	if (root == NULL)
+	{
+		printf("NULL");
+		return;
+	}
+	BinaryTreeInOrder(root->left);
+	printf("%c ", root->data);
+	BinaryTreeInOrder(root->right);
+}
+
+void BinaryTreePostOrder(BTNode* root)
+{
+	if (root == NULL)
+	{
+		printf("NULL");
+		return;
+	}
+	BinaryTreePostOrder(root->left);
+	BinaryTreePostOrder(root->right);
+	printf("%c ", root->data);
 }
 
