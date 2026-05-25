@@ -208,3 +208,41 @@ BTNode* build_pre_in(BTDataType pre[], BTDataType in[], int pre_start, int in_st
 	root->right = build_pre_in(pre, in, pre_start + 1 + left_size, in_start, right_size);
 	return root;
 }
+
+bool isUnivalTree(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return true;
+	}
+	//root->left是为了防止空指针解引用
+	if (root->left && root->left->data != root->data)
+	{
+		return false;
+	}
+	if (root->right && root->right->data != root->data)
+	{
+		return false;
+	}
+	return isUnivalTree(root->left) && isUnivalTree(root->right);
+}
+
+bool isSameTree(BTNode* p, BTNode* q)
+{
+	//先判断结构是否一样
+	if (p == NULL && q == NULL)
+	{
+		return true;
+	}
+	if (p == NULL || q == NULL)
+	{
+		return false;
+	}
+	//判断内容
+	if (p->data != q->data)
+	{
+		return false;
+	}
+	//递归左右子树
+	return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+}

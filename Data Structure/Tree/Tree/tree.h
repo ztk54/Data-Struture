@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
+#include <stdbool.h>
 typedef char BTDataType;
 
 typedef struct BinaryTreeNode
@@ -54,3 +54,9 @@ int BinaryTreeComplete(BTNode* root);
 
 //根据前序和中序遍历得到原二叉树
 BTNode* build_pre_in(BTDataType pre[], BTDataType in[], int pre_start, int in_start, int size);
+
+//如果二叉树每个节点都具有相同的值，那么该二叉树就是单值二叉树。
+bool isUnivalTree(BTNode* root);
+
+//给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
+bool isSameTree(BTNode* p, BTNode* q);
