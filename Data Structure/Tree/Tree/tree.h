@@ -64,3 +64,6 @@ bool isSameTree(BTNode* p, BTNode* q);
 //两个函数来判断是不是对称二叉树
 bool IsMirror(BTNode* left, BTNode* right);
 bool isSymmetric(BTNode* root);
+
+//判断主二叉树里面是否包含对应子树
+bool isSubtree(BTNode* root, BTNode* subRoot);

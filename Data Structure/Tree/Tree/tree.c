@@ -268,3 +268,16 @@ bool isSymmetric(BTNode* root)
 {
 	return IsMirror(root->left, root->right);
 }
+
+bool isSubtree(BTNode* root, BTNode* subRoot)
+{
+	if (root == NULL)
+	{
+		return false;
+	}
+	if (isSameTree(root, subRoot))
+	{
+		return true;
+	}
+	return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+}
