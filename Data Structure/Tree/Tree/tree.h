@@ -60,3 +60,7 @@ bool isUnivalTree(BTNode* root);
 
 //给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
 bool isSameTree(BTNode* p, BTNode* q);
+
+//两个函数来判断是不是对称二叉树
+bool IsMirror(BTNode* left, BTNode* right);
+bool isSymmetric(BTNode* root);

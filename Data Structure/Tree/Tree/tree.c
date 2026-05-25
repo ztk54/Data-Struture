@@ -246,3 +246,25 @@ bool isSameTree(BTNode* p, BTNode* q)
 	//递归左右子树
 	return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
 }
+
+bool IsMirror(BTNode* left, BTNode* right)
+{
+	if (left == NULL && right == NULL)
+	{
+		return true;
+	}
+	if (left == NULL || right == NULL)
+	{
+		return false;
+	}
+	if (left->data != right->data)
+	{
+		return false;
+	}
+	return IsMirror(left->right, right->left) && IsMirror(left->left, right->right);
+}
+
+bool isSymmetric(BTNode* root)
+{
+	return IsMirror(root->left, root->right);
+}
