@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <assert.h>
-
+#include <time.h>
+#define _CRT_SECURE_NO_WARNINGS
 typedef int HeapDataType;
 
 typedef struct
@@ -34,5 +35,7 @@ void Adjustup(HeapDataType* arr, int child);
 void Adjustdown(HeapDataType* arr, int parent, int n);
 
 void HeapSort(int* arr, int n);
+
+void CreatData();
 
 

@@ -1,5 +1,5 @@
 #include "Heap.h"
-
+#define _CRT_SECURE_NO_WARNINGS
 void swap(int* x, int* y)
 {
 	int tem = *x;
@@ -43,7 +43,10 @@ void HeapPush(HP* php, HeapDataType x)
 	if (php->capacity == php->size)
 	{
 		int newCapacity = php->capacity == 0 ? 4 : 2 * php->capacity;
-		HeapDataType* tem = (HeapDataType*)malloc(php->capacity * sizeof(HeapDataType));
+		//这里原本的写法HeapDataType* tem = (HeapDataType*)malloc(php->capacity * sizeof(HeapDataType)); 
+		//是错误的，newCapicity根本就没有用到
+		//并且之前这里用的malloc也是错误，应该用realloc
+		HeapDataType* tem = (HeapDataType*)realloc(php->arr, newCapacity * sizeof(HeapDataType));
 		if (tem == NULL)
 		{
 			perror("Malloc Failed");
@@ -59,7 +62,7 @@ void HeapPush(HP* php, HeapDataType x)
 
 void HeapPop(HP* php)
 {
-	assert(!HeapEmpty);
+	assert(!HeapEmpty(php));
 	swap(&php->arr[0], &php->arr[php->size - 1]);
 	php->size--;
 	Adjustdown(php->arr, 0, php->size);
@@ -90,7 +93,8 @@ void Adjustdown(HeapDataType* arr, int parent, int n)
 	while (child < n)
 	{
 		//大堆<  小堆>
-		if (arr[child] < arr[child + 1] && child + 1 < n)
+		//child + 1 < n 的越界检查应该放在 前面，否则当 child + 1 == n 时会先访问 arr[child + 1] 导致越界
+		if (child + 1 < n && arr[child] < arr[child + 1])
 		{
 			child++;
 		}
@@ -132,4 +136,24 @@ void HeapSort(int* arr, int n)
 	}
 }
 
+
+//十万个元素找到最小的十个
+void CreatData()
+{
+	int n = 100000;
+	srand((unsigned int)time(0));
+	const char* file = "data.txt";
+	FILE* fin = fopen(file, "w");
+	if (fin == NULL)
+	{
+		perror("fopen failed");
+		return;
+	}
+	for (int i = 0;i < n;i++)
+	{
+		int x = (rand() + i) % n;
+		fprintf(fin, "%d\n", x);
+	}
+	fclose(fin);
+}
 
