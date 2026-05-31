@@ -19,7 +19,7 @@ int main()
 	//	printf("%d ", arr[i]);
 	//}
 
-	//十万个元素找最小的十个
+	//十万个元素找最大的十个
 	//CreatData();
 	//FILE* fout = "data.txt";这样的写法是错误的
 	FILE* fout = fopen("data.txt", "r");
@@ -30,7 +30,7 @@ int main()
 	{
 		fscanf(fout, "%d", &minheap[i]);
 	}
-	//对于minheap向下调整建堆
+	//对于minheap向下调整建小堆
 	for (int i = (k - 1 - 1) / 2;i > 0;i--)
 	{
 		Adjustdown(minheap, i, k);
