@@ -4,8 +4,10 @@ int main()
 {
 	char arr[] = "ABD##E#H##CF##G##";
 	int pi = 0;
+	int size = 0;
 	BTNode* root = BinaryTreeCreate(arr, &pi);
-	printf("二叉树节点个数为：%d\n",BinaryTreeSize(root));
+	int k = BinaryTreeSize2(root, &size);
+	printf("二叉树节点个数为：%d\n",k);
 	printf("二叉树节点个数为：%d\n",pi);
 	printf("第4层节点个数为：%d\n", BinaryTreeLevelKSize(root, 4));
 	printf("叶子节点个数为：%d\n", BinaryTreeLeafSize(root));

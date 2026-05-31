@@ -1,5 +1,5 @@
-#include "Heap.h"
 #define _CRT_SECURE_NO_WARNINGS
+#include "Heap.h"
 void swap(int* x, int* y)
 {
 	int tem = *x;
@@ -94,12 +94,12 @@ void Adjustdown(HeapDataType* arr, int parent, int n)
 	{
 		//大堆<  小堆>
 		//child + 1 < n 的越界检查应该放在 前面，否则当 child + 1 == n 时会先访问 arr[child + 1] 导致越界
-		if (child + 1 < n && arr[child] < arr[child + 1])
+		if (child + 1 < n && arr[child] > arr[child + 1])
 		{
 			child++;
 		}
 		//大堆>  小堆<
-		if (arr[child] > arr[parent])
+		if (arr[child] < arr[parent])
 		{
 			swap(&arr[child], &arr[parent]);
 			parent = child;

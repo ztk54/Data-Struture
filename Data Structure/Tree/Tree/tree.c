@@ -48,7 +48,18 @@ int BinaryTreeSize(BTNode* root)
 		return 0;
 	}
 	return 1 + BinaryTreeSize(root->left) + BinaryTreeSize(root->right);
-	return 0;
+}
+
+int BinaryTreeSize2(BTNode* root, int* size)
+{
+	if (root == NULL)
+	{
+		return 0;
+	}
+	(*size)++;
+	BinaryTreeSize2(root->left, size);
+	BinaryTreeSize2(root->right, size);
+	return *size;
 }
 
 int BinaryTreeLeafSize(BTNode* root)
@@ -89,7 +100,6 @@ int BinaryTreeDepth(BTNode* root)
 	int left = BinaryTreeDepth(root->left);
 	int right = BinaryTreeDepth(root->right);
 	return 1 + (left > right ? left : right);
-	return 0;
 }
 
 BTNode* BinaryTreeFind(BTNode* root, BTDataType x)
@@ -112,6 +122,7 @@ BTNode* BinaryTreeFind(BTNode* root, BTDataType x)
 	{
 		return right;
 	}
+	return NULL;
 }
 
 void BinaryTreePrevOrder(BTNode* root)

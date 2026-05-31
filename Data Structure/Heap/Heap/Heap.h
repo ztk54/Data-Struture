@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <assert.h>
 #include <time.h>
-#define _CRT_SECURE_NO_WARNINGS
 typedef int HeapDataType;
 
 typedef struct

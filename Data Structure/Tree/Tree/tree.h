@@ -24,6 +24,7 @@ void BinaryTreeDestory(BTNode** root);
 
 //递归得到二叉树节点个数
 int BinaryTreeSize(BTNode* root);
+int BinaryTreeSize2(BTNode* root, int* size);
 
 //递归得到二叉树叶子节点个数，叶子节点是指左右子数都为空的二叉树
 int BinaryTreeLeafSize(BTNode* root);

@@ -1,5 +1,5 @@
-﻿#include "Heap.h"
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include "Heap.h"
 int main()
 {
 	//HP hp;
@@ -20,11 +20,11 @@ int main()
 	//}
 
 	//十万个元素找最小的十个
-	CreatData();
+	//CreatData();
 	//FILE* fout = "data.txt";这样的写法是错误的
 	FILE* fout = fopen("data.txt", "r");
 	int k = 0;
-	scanf("%d ", &k);
+	scanf("%d", &k);
 	int* minheap = (int*)malloc(k * sizeof(int));
 	for (int i = 0;i < k;i++)
 	{
