@@ -60,12 +60,13 @@ void ShellSort(int* arr, int n)
 
 void Bubble_sort(int* arr, int n)
 {
-	int flag = 0;
 	for (int i = 0;i < n;i++)
 	{
+		//flag必须在每次循环都置为0
+		int flag = 0;
 		for (int j = 0;j < n - i - 1;j++)
 		{
-			if (arr[j] < arr[j + 1])
+			if (arr[j] > arr[j + 1])
 			{
 				swap(&arr[j], &arr[j + 1]);
 				flag = 1;
