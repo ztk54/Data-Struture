@@ -2,9 +2,11 @@
 
 int main()
 {
-	int arr[] = { 9,6,2,7,1,2,10 };
+	int arr[] = { 5,4,3,2 };
 	int n = sizeof(arr) / sizeof(arr[0]);
-	ShellSort(arr, n);
+	//ShellSort(arr, n);
+	//Bubble_sort(arr, n);
+	select_sort(arr, n);
 	for (int i = 0;i < n;i++)
 	{
 		printf("%d ", arr[i]);
