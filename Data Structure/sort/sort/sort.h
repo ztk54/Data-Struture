@@ -15,7 +15,8 @@ void Bubble_sort(int* arr, int n);
 void select_sort(int* arr, int n);
 
 //归并排序
-void _Merge_sort(int* arr, int left, int right, int* tmp,int n);
+void _Merge_sort(int* arr, int left, int right, int* tmp);
 void Merge_sort(int* arr, int n);
 
-//
+//基数排序
+void count_sort(int* arr, int n);

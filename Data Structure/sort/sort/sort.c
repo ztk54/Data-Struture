@@ -121,7 +121,7 @@ void select_sort(int* arr, int n)
 	}
 }
 
-void _Merge_sort(int* arr, int left, int right, int* tmp, int n)
+void _Merge_sort(int* arr, int left, int right, int* tmp)
 {
 	//递归
 	if (left >= right)
@@ -130,8 +130,8 @@ void _Merge_sort(int* arr, int left, int right, int* tmp, int n)
 	}
 	//根据mid不断划分为左右序列，[left,mid][mid+1,right]。
 	int mid = (right - left) / 2 + left;
-	_Merge_sort(arr, left, mid, tmp, n);
-	_Merge_sort(arr, mid + 1, right, tmp, n);
+	_Merge_sort(arr, left, mid, tmp);
+	_Merge_sort(arr, mid + 1, right, tmp);
 
 	//使区间有序,注意这里的index不能等于0，哪个小哪个往前放
 	//这里我在自己写的时候遇到了一个bug，tmp[begin1++] = arr[index++];，这条语句是错的，应该是把原数组里面begin的位置放到tmp那里
@@ -171,8 +171,48 @@ void Merge_sort(int* arr, int n)
 	if (tmp == NULL)
 	{
 		perror("Malloc Failed");
+		return;
 	}
-	_Merge_sort(arr, 0, n - 1, tmp, n);
+	_Merge_sort(arr, 0, n - 1, tmp);
 	free(tmp);
+}
+
+void count_sort(int* arr, int n)
+{
+	//找到最大最小值
+	int max = 0, min = 0;
+	for (int i = 0;i < n;i++)
+	{
+		if (max < arr[i])
+		{
+			max = arr[i];
+		}
+		if (min > arr[i])
+		{
+			min = arr[i];
+		}
+	}
+
+	//扩容得到count数组
+	int range = max - min + 1;
+	int* count = (int*)calloc(range, sizeof(int));
+	if (count == NULL)
+	{
+		perror("Calloc Fail");
+		exit(1);
+	}
+	for (int i = 0;i < n;i++)
+	{
+		count[arr[i] - min]++;
+	}
+	//还原
+	int index = 0;
+	for (int i = 0;i < range;i++)
+	{
+		while (count[i]--)
+		{
+			arr[index++] = i + min;
+		}
+	}
 }
 

@@ -8,6 +8,7 @@ int main()
 	//Bubble_sort(arr, n);
 	//select_sort(arr, n);
 	//Merge_sort(arr, n);
+	count_sort(arr, n);
 	for (int i = 0;i < n;i++)
 	{
 		printf("%d ", arr[i]);
