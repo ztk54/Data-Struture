@@ -121,3 +121,58 @@ void select_sort(int* arr, int n)
 	}
 }
 
+void _Merge_sort(int* arr, int left, int right, int* tmp, int n)
+{
+	//递归
+	if (left >= right)
+	{
+		return;
+	}
+	//根据mid不断划分为左右序列，[left,mid][mid+1,right]。
+	int mid = (right - left) / 2 + left;
+	_Merge_sort(arr, left, mid, tmp, n);
+	_Merge_sort(arr, mid + 1, right, tmp, n);
+
+	//使区间有序,注意这里的index不能等于0，哪个小哪个往前放
+	//这里我在自己写的时候遇到了一个bug，tmp[begin1++] = arr[index++];，这条语句是错的，应该是把原数组里面begin的位置放到tmp那里
+	int begin1 = left, end1 = mid;
+	int begin2 = mid + 1, end2 = right;
+	int index = begin1;
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (arr[begin1] < arr[begin2])
+		{
+			tmp[index++] = arr[begin1++];
+		}
+		else
+		{
+			tmp[index++] = arr[begin2++];
+		}
+	}
+	//此时还有一个可能没有完全插入
+	while (begin1 <= end1)
+	{
+		tmp[index++] = arr[begin1++];
+	}
+	while (begin2 <= end2)
+	{
+		tmp[index++] = arr[begin2++];
+	}
+
+	for (int i = left;i <= right;i++)
+	{
+		arr[i] = tmp[i];
+	}
+}
+
+void Merge_sort(int* arr, int n)
+{
+	int* tmp = (int*)malloc(n * sizeof(int));
+	if (tmp == NULL)
+	{
+		perror("Malloc Failed");
+	}
+	_Merge_sort(arr, 0, n - 1, tmp, n);
+	free(tmp);
+}
+
