@@ -177,6 +177,63 @@ void Merge_sort(int* arr, int n)
 	free(tmp);
 }
 
+void my_qsort(int* arr, int left, int right)
+{
+	if (left >= right)
+	{
+		return;
+	}
+	//int keyi = hoare_qsort(arr, left, right);
+	int keyi = lomuto_qsort(arr, left, right);
+	my_qsort(arr, left, keyi - 1);
+	my_qsort(arr, keyi + 1, right);
+}
+
+//hore版本找基准值
+int hoare_qsort(int* arr, int left, int right)
+{
+	int keyi = left;
+	left++;
+	while (left <= right)
+	{
+		//注意这里条件都需要限定left<=right
+		//从右往左走，找比基准值小的
+		while (left <= right && arr[right] > arr[keyi])
+		{
+			right--;
+		}
+		//从左往右走，找比基准值大的
+		while (left <= right && arr[left] < arr[keyi])
+		{
+			left++;
+		}
+		if (left <= right)
+		{
+			swap(&arr[left], &arr[right]);
+		}
+	}
+	//交换right和keyi的位置
+	swap(&arr[right], &arr[keyi]);
+	return right;
+}
+
+int lomuto_qsort(int* arr, int left, int right)
+{
+	int keyi = left;
+	int prev = left, cur = prev + 1;
+	while (cur <= right)
+	{
+		if (arr[cur] < arr[keyi] && ++prev != cur)
+		{
+			swap(&arr[prev], &arr[cur]);
+		}
+		cur++;
+	}
+	swap(&arr[prev], &arr[keyi]);
+	return prev;
+}
+
+
 void count_sort(int* arr, int n)
 {
 	//找到最大最小值

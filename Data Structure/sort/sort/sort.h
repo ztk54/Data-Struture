@@ -18,5 +18,12 @@ void select_sort(int* arr, int n);
 void _Merge_sort(int* arr, int left, int right, int* tmp);
 void Merge_sort(int* arr, int n);
 
+//快速排序
+void my_qsort(int* arr, int left,int right);
+//hore版本找基准值
+int hoare_qsort(int* arr, int left, int right);
+//lomuto双指针法
+int lomuto_qsort(int* arr, int left, int right);
+
 //基数排序
 void count_sort(int* arr, int n);
