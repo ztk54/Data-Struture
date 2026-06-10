@@ -1,173 +1,203 @@
 # Data Structures
 
-This project implements various classic data structures in C, including singly linked lists, doubly linked lists, sequential lists, stacks, queues, heaps, and binary trees. Each data structure provides complete interfaces for insertion, deletion, modification, and lookup operations, facilitating learning and reuse.
+A collection of classic data structures and algorithms implemented in C, including linear lists, stacks, queues, heaps, binary trees, and eight sorting algorithms. Each module provides a complete set of operations with independent test files.
 
 ## Project Structure
 
 ```
 Data Structure/
-├── DListNode/       # Doubly Linked List
-├── Heap/            # Heap
-├── Queue/           # Queue
-├── SListNode/       # Singly Linked List
-├── SeqList/         # Sequential List
-├── Stack/           # Stack
-└── tree.c           # Binary Tree
+├── SeqList/          # Sequential List (dynamic array)
+├── SListNode/        # Singly Linked List
+├── DListNode/        # Doubly Circular Linked List (sentinel head)
+├── Stack/            # Stack (array-based)
+├── Queue/            # Queue (linked-list-based)
+├── Heap/             # Max-Heap + Heap Sort + Top-K
+├── Tree/             # Binary Tree (traversals / LeetCode problems / reconstruction)
+├── sort/             # Eight Sorting Algorithms
+├── 数据结构课设大作业.c    # Course Project: Expression Evaluator + Parking Lot Manager
+└── 二叉树.c / 复杂度.c    # Practice: Binary Tree Traversal / Array Rotation
 ```
 
-## Data Structure Overview
+## Module Overview
 
-| Module | Description |
-|--------|-------------|
-| SListNode | Singly linked list supporting head insertion, tail insertion, search, insertion, deletion, etc. |
-| DListNode | Doubly linked list with a sentinel head node, enabling efficient operations at both ends. |
-| SeqList | Dynamic sequential list, similar to C++ vector, with automatic capacity expansion. |
-| Stack | Stack implementing LIFO (Last In, First Out) behavior. |
-| Queue | Queue implementing FIFO (First In, First Out) behavior. |
-| Heap | Heap structure used for implementing priority queues and heap sort. |
-| tree.c | Binary tree supporting both recursive and non-recursive traversals. |
+| Module | Implementation | Key Features |
+|--------|---------------|--------------|
+| SeqList | Dynamic array, 2x growth | Full CRUD, insert/delete at arbitrary positions |
+| SListNode | Singly linked list, double-pointer ops | Head/tail insert & delete, insert before/after, find & erase |
+| DListNode | Doubly circular, sentinel head node | O(1) head/tail ops, arbitrary insert/delete |
+| Stack | Dynamic array | Push/pop/top, isEmpty, size |
+| Queue | Linked structure, head & tail pointers | Enqueue/dequeue, front/back, isEmpty |
+| Heap | Dynamic array, max-heap | Push (sift-up), pop (sift-down), heap sort, Top-K |
+| Tree | Binary linked + queue/stack helpers | Recursive & iterative traversal, level-order, tree reconstruction, LeetCode problems |
+| sort | In-place comparison & non-comparison sorts | 8 algorithms with multiple partition strategies |
 
 ## Quick Start
 
-### Compilation and Execution
-
-Each module directory contains an independent test file that can be compiled and run individually:
+Each module has its own `.h`, `.c`, and `test.c` files. Compile and run independently:
 
 ```bash
-# Example for sequential list
-cd Data Structure/SeqList/SeqList
+# Example: Sequential List
+cd "Data Structure/SeqList/SeqList"
 gcc -o test test.c SeqList.c
 ./test
 ```
 
-### Example Code
-
-**Sequential List Example**
-
-```c
-#include "Seqlist.h"
-
-int main() {
-    SL s;
-    InitSL(&s);
-    
-    SLPushBack(&s, 1);
-    SLPushBack(&s, 2);
-    SLPushBack(&s, 3);
-    
-    SLPrint(&s);  // Output: 1 2 3
-    
-    SLDestroy(&s);
-    return 0;
-}
-```
-
-**Singly Linked List Example**
-
-```c
-#include "SListNode.h"
-
-int main() {
-    SListNode* plist = NULL;
-    
-    STLPushBack(&plist, 1);
-    STLPushBack(&plist, 2);
-    STLPushFront(&plist, 0);
-    
-    STLPrint(plist);  // Output: 0 1 2
-    
-    SLTDestroy(&plist);
-    return 0;
-}
-```
-
-**Heap Sort Example**
-
-```c
-#include "Heap.h"
-
-int main() {
-    int arr[] = {9, 5, 2, 7, 1, 6, 3};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    
-    HeapSort(arr, n);  // In-place heap sort
-    
-    // arr becomes sorted: 1 2 3 5 6 7 9
-    return 0;
-}
-```
-
-## Detailed Module Interfaces
+## API Reference
 
 ### Sequential List (SeqList)
 
-- `InitSL` - Initialize
-- `SLPushBack/SLPushFront` - Insert at tail/head
-- `SLPopBack/SLPopFront` - Delete from tail/head
-- `SLInsert/SLErase` - Insert/delete at specified position
-- `Find` - Search for an element
+A dynamic array that automatically doubles capacity when full.
+
+```c
+void InitSL(SL* s);                              // Initialize
+void SLPushBack(SL* s, SLDataType x);            // Insert at tail
+void SLPushFront(SL* s, SLDataType x);           // Insert at head
+void SLPopBack(SL* s);                           // Delete from tail
+void SLPopFront(SL* s);                          // Delete from head
+void SLInsert(SL* s, int pos, SLDataType x);     // Insert at position
+void SLErase(SL* s, int pos, SLDataType x);      // Erase at position
+int  Find(SL* s, SLDataType x);                  // Find element, returns index
+void SLDestroy(SL* s);                           // Destroy
+```
 
 ### Singly Linked List (SListNode)
 
-- `STLPushBack/STLPushFront` - Insert at tail/head
-- `STLPopBack/SListPopFront` - Delete from tail/head
-- `STLFind` - Find a node
-- `SListInsertAfter/SLTInsert` - Insert after / insert at head
-- `SListEraseAfter/SLTErase` - Delete after / delete at specified position
-- `SLTDestroy` - Destroy the list
+Uses double pointers for head manipulation. Supports head, tail, and arbitrary position operations.
 
-### Doubly Linked List (DListNode)
+```c
+SListNode* BuySListNode(STLDataType x);                    // Create node
+void STLPushBack(SListNode** plist, STLDataType x);        // Insert at tail
+void STLPushFront(SListNode** plist, STLDataType x);       // Insert at head
+void STLPopBack(SListNode** plist);                        // Delete from tail
+void SListPopFront(SListNode** plist);                     // Delete from head
+SListNode* STLFind(SListNode* plist, STLDataType x);       // Find node by value
+void SListInsertAfter(SListNode* pos, STLDataType x);      // Insert after pos
+void SLTInsert(SListNode** pphead, SListNode* pos, STLDataType x); // Insert before pos
+void SListEraseAfter(SListNode* pos);                      // Erase node after pos
+void SLTErase(SListNode** pphead, SListNode* pos);         // Erase pos node
+void SLTDestroy(SListNode** pphead);                       // Destroy entire list
+```
 
-- `DLInit` - Initialize and create
-- `ListPushBack/ListPushFront` - Insert at tail/head
-- `ListPopBack/ListPopFront` - Delete from tail/head
-- `ListFind` - Find a node
-- `ListInsert/ListErase` - Insert/delete at specified position
-- `ListDestory` - Destroy the list
+### Doubly Circular Linked List (DListNode)
 
-### Stack (Stack)
+Sentinel head node unifies head and tail operations, both in O(1).
 
-- `StackInit` - Initialize
-- `StackPush` - Push element
-- `StackPop` - Pop element
-- `StackTop` - Get top element
-- `StackSize` - Get number of elements
-- `IsStackEmpty` - Check if empty
+```c
+DListNode* DLInit();                                     // Create sentinel head
+void ListPushBack(DListNode* pHead, LTDataType x);       // Insert at tail
+void ListPushFront(DListNode* pHead, LTDataType x);      // Insert at head
+void ListPopBack(DListNode* pHead);                      // Delete from tail
+void ListPopFront(DListNode* pHead, LTDataType x);       // Delete from head
+DListNode* ListFind(DListNode* pHead, LTDataType x);     // Find node
+void ListInsert(DListNode* pos, LTDataType x);           // Insert before pos
+void ListErase(DListNode* pos);                          // Erase pos node
+bool IsEmpty(DListNode* pHead);                          // Check if empty
+void ListDestory(DListNode** ppHead);                    // Destroy list
+```
 
-### Queue (Queue)
+### Stack
 
-- `QueueInit` - Initialize
-- `QueuePush` - Enqueue
-- `QueuePop` - Dequeue
-- `QueueFront/QueueBack` - Get front/back element
-- `QueueSize` - Get number of elements
-- `IsQueueEmpty` - Check if empty
+Array-based stack with LIFO semantics and dynamic capacity.
 
-### Heap (Heap)
+```c
+void StackInit(Stack* ps);                    // Initialize
+void StackPush(Stack* ps, StackDataType x);   // Push
+void StackPop(Stack* ps);                     // Pop
+StackDataType StackTop(Stack* ps);            // Peek top
+int  StackSize(Stack* ps);                    // Get size
+bool IsStackEmpty(Stack* ps);                 // Check if empty
+void StackDestroy(Stack* ps);                 // Destroy
+```
 
-- `HeapInit` - Initialize
-- `HeapPush` - Insert element (with heapify-up)
-- `HeapPop` - Delete root (with heapify-down)
-- `HeapTop` - Get root element
-- `HeapSize` - Get number of elements
-- `HeapEmpty` - Check if empty
-- `HeapSort` - Heap sort
+### Queue
 
-### Binary Tree (tree.c)
+Linked-list-based queue with head and tail pointers for O(1) enqueue/dequeue.
 
-- `CreateBiTree` - Create binary tree from input
-- `PreOrder/InOrder/PostOrder` - Recursive preorder/inorder/postorder traversal
-- `LevelOrder` - Level-order traversal (implemented with queue)
-- `InOrder_NonRec/PostOrder_NonRec` - Non-recursive traversal (implemented with stack)
-- `CountNodes` - Count total nodes
-- `CountLeaf` - Count leaf nodes
-- `TreeDepth` - Calculate tree depth
+```c
+void QueueInit(Queue* q);            // Initialize
+void QueuePush(Queue* q, QDataType x); // Enqueue
+void QueuePop(Queue* q);             // Dequeue
+QDataType QueueFront(Queue* q);      // Get front
+QDataType QueueBack(Queue* q);       // Get back
+int  QueueSize(Queue* q);            // Get size
+bool IsQueueEmpty(Queue* q);         // Check if empty
+void QueueDestroy(Queue* q);         // Destroy
+```
 
-## System Requirements
+### Max-Heap
 
-- C compiler (GCC/Clang/MSVC, etc.)
-- Supports C99 standard or higher
+Max-heap with sift-up on insert and sift-down on delete. Includes a Top-K demo (finding 10 smallest among 100k items).
+
+```c
+void HeapInit(HP* php);                    // Initialize
+void HeapPush(HP* php, HeapDataType x);    // Insert (sift-up)
+void HeapPop(HP* php);                     // Delete root (sift-down)
+HeapDataType HeapTop(HP* php);             // Get root
+int  HeapSize(HP* php);                    // Get size
+bool HeapEmpty(HP* php);                   // Check if empty
+void HeapSort(int* arr, int n);            // In-place heap sort
+void HeapDestroy(HP* php);                 // Destroy
+void CreatData();                          // Generate 100k random test data
+```
+
+### Binary Tree
+
+The most comprehensive module, covering traversals and several classic LeetCode problems.
+
+**Core Operations:**
+```c
+BTNode* BinaryTreeCreate(BTDataType* a, int* pi);   // Build from preorder (use '#' for NULL)
+void BinaryTreeDestory(BTNode** root);               // Postorder recursive destroy
+int  BinaryTreeSize(BTNode* root);                   // Total node count
+int  BinaryTreeLeafSize(BTNode* root);               // Leaf node count
+int  BinaryTreeLevelKSize(BTNode* root, int k);      // Node count at level k
+int  BinaryTreeDepth(BTNode* root);                  // Tree depth
+BTNode* BinaryTreeFind(BTNode* root, BTDataType x);   // Find node by value
+```
+
+**Traversals:**
+```c
+void BinaryTreePrevOrder(BTNode* root);       // Preorder (recursive)
+void BinaryTreeInOrder(BTNode* root);         // Inorder (recursive)
+void BinaryTreePostOrder(BTNode* root);       // Postorder (recursive)
+void BinaryTreeLevelOrder(BTNode* root);      // Level-order (queue-based)
+```
+
+**Advanced Problems:**
+```c
+BTNode* build_pre_in(BTDataType pre[], BTDataType in[], ...); // Reconstruct from pre+in order
+bool isUnivalTree(BTNode* root);      // Univalued binary tree
+bool isSameTree(BTNode* p, BTNode* q); // Same tree
+bool isSymmetric(BTNode* root);        // Symmetric tree
+bool isSubtree(BTNode* root, BTNode* subRoot); // Subtree of another tree
+```
+
+### Sorting Algorithms
+
+Eight sorting algorithms covering both comparison-based and non-comparison approaches.
+
+| Algorithm | Function | Time Complexity | Notes |
+|-----------|----------|----------------|-------|
+| Insertion Sort | `InsertSort` | O(n²) | Efficient on nearly-sorted data |
+| Shell Sort | `ShellSort` | O(n^1.3) | Gap-based incremental insertion |
+| Bubble Sort | `Bubble_sort` | O(n²) | Flag optimization for early exit |
+| Selection Sort | `select_sort` | O(n²) | Two-way min/max selection |
+| Quick Sort | `my_qsort` + `hoare_qsort` / `lomuto_qsort` | O(n log n) | Both Hoare & Lomuto partition schemes |
+| Merge Sort | `Merge_sort` | O(n log n) | Recursive divide-and-conquer with temp array |
+| Counting Sort | `count_sort` | O(n + range) | Non-comparison, ideal for small-range data |
+
+### Course Design Project
+
+`数据结构课设大作业.c` contains two complete course design assignments:
+
+1. **Arithmetic Expression Evaluator** — Dual-stack approach (operand stack + operator stack). Supports `+ - * / ^`, `sqrt`, `ln`, and parentheses. Outputs step-by-step evaluation trace.
+2. **Parking Lot Manager** — Parking spaces as a sequential stack, waiting lane as a linked queue. Supports vehicle arrival/departure (with yield-and-return logic), queue replenishment, and status display.
+
+## Requirements
+
+- C compiler (GCC / Clang / MSVC)
+- C99 or later
 
 ## License
 
-This project is intended solely for learning and educational purposes.
+For educational and learning purposes only.
