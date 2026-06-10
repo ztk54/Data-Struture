@@ -1,7 +1,9 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 void swap(int* x, int* y);
 //直接插入排序
 void InsertSort(int* arr, int n);
@@ -27,3 +29,4 @@ int lomuto_qsort(int* arr, int left, int right);
 
 //基数排序
 void count_sort(int* arr, int n);
+

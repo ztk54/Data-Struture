@@ -207,9 +207,12 @@ int hoare_qsort(int* arr, int left, int right)
 		{
 			left++;
 		}
+		//注意这里如果没有后面的left和right操作有可能会造成死循环情况
 		if (left <= right)
 		{
 			swap(&arr[left], &arr[right]);
+			left++;
+			right--;
 		}
 	}
 	//交换right和keyi的位置
